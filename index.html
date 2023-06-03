@@ -11,10 +11,10 @@
     <h1>J + H</h1>
     <nav>
       <ul>
-        <li><a href="#gallery">Galeria</a></li>
+        <li><a href="#gallery">Inicio</a></li>
         <li><a href="#dress-code">Codigo de Vestimenta</a></li>
         <li><a href="#location">Lugar y Horario</a></li>
-        <li><a href="#contact">Contacto</a></li>
+        <li><a href="#container">Contacto</a></li>
       </ul>
     </nav>
   </header>
@@ -22,7 +22,7 @@
   <section id="gallery">
     <div class="gallery">
       <img src="img\WhatsApp Image 2023-05-28 at 4.16.07 PM (1).jpeg" alt="Foto de Joselyn">
-      <video src="media\Video.mp4" controls autoplay></video>
+      <video src="media\Video.mp4" controls autoplay class="selected"></video>
       <img src="img\WhatsApp Image 2023-05-28 at 4.16.07 PM (2).jpeg" alt="Foto de los novios">
     </div>
   </section>
@@ -57,7 +57,7 @@
 
   <section class="location "id="location">
     <h1>Lugar y Horario</h1>
-    <p>La ceremonia se llevará a cabo en puerto Manso. Esta es una localidad situada a 1 hora y 30 min (Aproximadamente) de la ciudad de San Carlos de Bariloche. Para llegar al lugar, <span class="important-text">saldrá un transporte a las xx:xx hs (Se recomienda estar al menos 15 minutos antes). Por favor ¡SEAN PUNTUALES! ya que este será el único transporte que hará el viaje.</span>  El lugar de salida es el siguiente:</p>
+    <p>La ceremonia se llevará a cabo en puerto Manso. Esta es una localidad situada a 1 hora y 30 min (Aproximadamente) de la ciudad de San Carlos de Bariloche. Para llegar al lugar, <span class="important-text">saldrá un transporte a las 09:00 hs (Se recomienda estar al menos 15 minutos antes). Por favor ¡SEAN PUNTUALES! ya que este será el único transporte que hará el viaje.</span>  El lugar de salida es el siguiente:</p>
     
     <div class="iframe-container">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d751.2508357312777!2d-71.31108573032256!3d-41.13445298813114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x961a7b6390826147%3A0x56c74fa37e78a88f!2sFeria%20de%20artesanos%20y%20emprendedores%20Ecosure%C3%B1os!5e0!3m2!1ses-419!2sar!4v1685311340332!5m2!1ses-419!2sar" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -122,32 +122,52 @@
         <p>© 2023 Joselyn y Henry | Todos los derechos reservados</p>
     </footer>
 </body>
-<script>
+  <script>
 
-// Este script revisará el formulario de contacto y usará los datos 
-// para enviar un mensaje, tomando el contenido que descarga el usuario.
-// Usa el programa local del usuario para enviar el correo.
+  // Obtener el contenedor de la galería
+  const galleryContainer = document.querySelector('.gallery');
 
+  // Obtener todos los elementos de imagen y video
+  const galleryItems = Array.from(galleryContainer.querySelectorAll('img, video'));
 
-  // Constante que Seleciona el formulario y boton oculto
-const $form = document.querySelector('#contact_form')
-// Constante que Seleciona el boton oculto
-const $buttonMailto = document.querySelector('#formHiden')
-// Escucho el evento submit del formulario
-$form.addEventListener("submit", handleSubmit)
-// Funcion que maneja el formulario. Recibe el evento
-function handleSubmit(event){
-    // Evito que se refresque la pagina (default action) al darle Enviar
-    event.preventDefault();
-    // FormData que almacena y valida el formulario. Recibe this(Es el formulario $form)
-    const form = new FormData(this)
-    // Voy a modificar el atributo href del ancla oculta. Uso template literal ``
-    // En el template literal usa ${} para usar expresiones (form.get())
-    $buttonMailto.setAttribute('href', `mailto:heorhenry@gmail.com?subject=${form.get('subject')} - ${form.get('name')} | ${form.get('telephone')}&body=${form.get('message')}`) 
-    // El ancla oculta se va a hacer click automaticamente
-    $buttonMailto.click()
-    // Reinicio el formulario
-    $form.reset()
+  // Agregar evento al contenedor de la galería
+  galleryContainer.addEventListener('mouseover', (event) => {
+    const target = event.target;
+
+    // Verificar si el elemento es una imagen o video
+    if (galleryItems.includes(target)) {
+      // Quitar la clase "selected" de todos los elementos
+      galleryItems.forEach(item => item.classList.remove('selected'));
+
+      // Agregar la clase "selected" solo al elemento actual
+      target.classList.add('selected');
     }
-</script>
+  });
+
+  // Este script revisará el formulario de contacto y usará los datos 
+  // para enviar un mensaje, tomando el contenido que descarga el usuario.
+  // Usa el programa local del usuario para enviar el correo.
+
+
+    // Constante que Seleciona el formulario y boton oculto
+  const $form = document.querySelector('#contact_form')
+  // Constante que Seleciona el boton oculto
+  const $buttonMailto = document.querySelector('#formHiden')
+  // Escucho el evento submit del formulario
+  $form.addEventListener("submit", handleSubmit)
+  // Funcion que maneja el formulario. Recibe el evento
+  function handleSubmit(event){
+      // Evito que se refresque la pagina (default action) al darle Enviar
+      event.preventDefault();
+      // FormData que almacena y valida el formulario. Recibe this(Es el formulario $form)
+      const form = new FormData(this)
+      // Voy a modificar el atributo href del ancla oculta. Uso template literal ``
+      // En el template literal usa ${} para usar expresiones (form.get())
+      $buttonMailto.setAttribute('href', `mailto:heorhenry@gmail.com?subject=${form.get('subject')} - ${form.get('name')} | ${form.get('telephone')}&body=${form.get('message')}`) 
+      // El ancla oculta se va a hacer click automaticamente
+      $buttonMailto.click()
+      // Reinicio el formulario
+      $form.reset()
+      }
+  </script>
 </html>
